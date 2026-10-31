@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FileText, Sun, Moon, Menu, X } from 'lucide-react';
+import { Download, Sun, Moon, Menu, X } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function Navbar({ onOpenResume, isDark, onToggleTheme }) {
+export default function Navbar({ isDark, onToggleTheme }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -50,15 +50,16 @@ export default function Navbar({ onOpenResume, isDark, onToggleTheme }) {
 
         {/* Action Controls */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* Quick ATS Resume View Button */}
-          <button
-            onClick={onOpenResume}
+          {/* Quick Resume Download Button */}
+          <a
+            href="/Shyam(Resume).pdf"
+            download="ATS Resume - Shyam(Resume).pdf"
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-bold bg-cyan-100 dark:bg-cyan-500/10 text-cyan-950 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-500/30 hover:bg-cyan-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all shadow-sm hover:shadow-cyan-500/20"
+            title="Download Shyam(Resume).pdf"
           >
-            <FileText className="w-4 h-4" />
-            <span className="hidden sm:inline">ATS Resume</span>
-            <span className="sm:hidden">Resume</span>
-          </button>
+            <Download className="w-4 h-4" />
+            <span>Resume</span>
+          </a>
 
           {/* Theme Toggle Button */}
           <button
@@ -94,15 +95,14 @@ export default function Navbar({ onOpenResume, isDark, onToggleTheme }) {
             </a>
           ))}
           <div className="pt-3 border-t border-slate-800/80">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenResume();
-              }}
-              className="w-full py-3 rounded-xl text-xs font-mono font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
+            <a
+              href="/Shyam(Resume).pdf"
+              download="ATS Resume - Shyam(Resume).pdf"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-3 rounded-xl text-xs font-mono font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
             >
-              <FileText className="w-4 h-4" /> View ATS Resume & Summary
-            </button>
+              <Download className="w-4 h-4" /> Download Resume (PDF)
+            </a>
           </div>
         </div>
       )}

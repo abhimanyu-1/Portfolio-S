@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Printer, FileCheck, ExternalLink } from 'lucide-react';
+import { X, Printer, FileCheck, ExternalLink, Download } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import portraitImg from '../assets/portrait.png';
 
@@ -32,6 +32,14 @@ export default function ResumeModal({ onClose }) {
             </h3>
           </div>
           <div className="flex items-center gap-3">
+            <a
+              href="/Shyam(Resume).pdf"
+              download="ATS Resume - Shyam(Resume).pdf"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono bg-emerald-600 dark:bg-emerald-500 text-white dark:text-slate-950 font-bold hover:brightness-110 shadow-md shadow-emerald-500/20 transition-all"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download PDF</span>
+            </a>
             <button
               onClick={() => window.print()}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono bg-cyan-600 dark:bg-cyan-500 text-white dark:text-slate-950 font-bold hover:brightness-110 shadow-md shadow-cyan-500/20 transition-all"
