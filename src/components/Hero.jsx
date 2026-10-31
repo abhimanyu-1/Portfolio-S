@@ -277,8 +277,8 @@ export default function Hero({ onNotify }) {
                     <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold block">
                       Pytest Quality Gate
                     </span>
-                    <p className="text-xs sm:text-sm text-slate-200 leading-snug">
-                      Achieved <strong className="text-emerald-400 font-mono font-semibold">98.5% Unit Test Coverage</strong> on <code className="text-cyan-300 font-mono text-[11px] bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">cs2dr_data_pull.py</code> using mocks and patching.
+                    <p className="text-xs sm:text-sm font-semibold text-slate-200 leading-snug">
+                      Achieved <span className="text-emerald-400 font-mono">98.5% Unit Test Coverage</span>
                     </p>
                   </div>
                 </div>
