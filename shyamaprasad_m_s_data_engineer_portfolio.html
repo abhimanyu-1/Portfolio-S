@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shyamaprasad M. S. | Data Engineer & Python Developer Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfeff',
+                            100: '#cffafe',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            900: '#164e63',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar & Glassmorphism Utilities */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+        }
+        html:not(.dark) .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06);
+        }
+
+        .bg-grid-pattern {
+            background-size: 36px 36px;
+            background-image: 
+                linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+        }
+
+        /* Pipeline Node Animation */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
+        }
+        .node-active {
+            animation: pulseGlow 2s infinite;
+            border-color: #06b6d4 !important;
+        }
+
+        @keyframes flowLine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .pipeline-connector-running {
+            background: linear-gradient(90deg, #06b6d4, #10b981, #3b82f6, #06b6d4);
+            background-size: 200% 100%;
+            animation: flowLine 1.5s linear infinite;
+        }
+
+        /* Typewriter cursor */
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: #fff !important; color: #000 !important; }
+            .glass-card { border: 1px solid #cbd5e1 !important; box-shadow: none !important; background: #fff !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 dark:bg-slate-950 dark:text-slate-100 light:bg-slate-50 light:text-slate-900 font-sans antialiased selection:bg-cyan-500 selection:text-slate-950 transition-colors duration-300 min-h-screen relative overflow-x-hidden">
+
+    <!-- Ambient Background Glows -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden no-print">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute inset-0 bg-grid-pattern"></div>
+    </div>
+
+    <!-- Top Sticky Navigation Bar -->
+    <header class="sticky top-0 z-40 glass-card border-b border-slate-800/80 dark:border-slate-800/80 transition-colors no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#hero" class="flex items-center gap-3 group focus:outline-none">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-mono font-bold text-lg shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                    SM
+                </div>
+                <div>
+                    <span class="font-bold tracking-tight text-base sm:text-lg block leading-none dark:text-white text-slate-900">SHYAMAPRASAD M. S.</span>
+                    <span class="font-mono text-xs text-cyan-500 dark:text-cyan-400 block mt-0.5">DATA ENGINEER // GCP & PYSPARK</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-1 lg:gap-2" aria-label="Main Navigation">
+                <a href="#about" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-800/40 transition-all">Overview</a>
+                <a href="#skills" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-800/40 transition-all">Skills</a>
+                <a href="#experience" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-800/40 transition-all">Experience & DAG</a>
+                <a href="#projects" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-800/40 transition-all">Projects</a>
+                <a href="#education" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-800/40 transition-all">Education</a>
+                <a href="#credentials" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-800/40 transition-all">Credentials</a>
+                <a href="#contact" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-800/40 transition-all">Contact</a>
+            </nav>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2">
+                <!-- Quick ATS Resume View Button -->
+                <button onclick="openResumeModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500 hover:text-slate-950 transition-all">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>ATS Resume</span>
+                </button>
+
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Dark or Light Mode" class="p-2.5 rounded-xl glass-card text-slate-700 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 transition-all">
+                    <i data-lucide="sun" id="themeIconSun" class="w-4 h-4 hidden"></i>
+                    <i data-lucide="moon" id="themeIconMoon" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open Menu" class="md:hidden p-2.5 rounded-xl glass-card text-slate-700 dark:text-slate-300 hover:text-cyan-400">
+                    <i data-lucide="menu" id="mobileMenuIcon" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Collapsible Navigation Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-800/80 px-4 pt-3 pb-5 space-y-2 bg-slate-900/95 dark:bg-slate-900/95 backdrop-blur-xl">
+            <a href="#about" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Overview</a>
+            <a href="#skills" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Technical Skills</a>
+            <a href="#experience" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Experience & Pipeline Simulator</a>
+            <a href="#projects" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Selected Projects</a>
+            <a href="#education" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Education & Ranks</a>
+            <a href="#credentials" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Certifications, Research & Leadership</a>
+            <a href="#contact" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-400">Contact</a>
+            <div class="pt-2 border-t border-slate-800 flex gap-2">
+                <button onclick="closeMobileMenu(); openResumeModal();" class="w-full py-2.5 rounded-xl text-xs font-mono font-semibold bg-cyan-500 text-slate-950 flex items-center justify-center gap-2">
+                    <i data-lucide="file-text" class="w-4 h-4"></i> View ATS Summary
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 space-y-20 sm:space-y-28">
+
+        <!-- 1. HERO & PROFILE SECTION -->
+        <section id="hero" class="pt-2 sm:pt-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                <!-- Left Column: Intro, Roles, Summary & CTAs -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Status Pill -->
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass-card border-cyan-500/30 text-xs font-mono text-cyan-600 dark:text-cyan-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 -ml-4"></span>
+                        <span>Software Engineer / Data Engineering @ TCS • Bengaluru, India</span>
+                    </div>
+
+                    <!-- Name & Animated Headline -->
+                    <div class="space-y-3">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight dark:text-white text-slate-900">
+                            Shyamaprasad <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400">M. S.</span>
+                        </h1>
+                        <div class="flex flex-wrap items-center gap-2 text-lg sm:text-xl font-mono text-slate-600 dark:text-slate-300 min-h-[2rem]">
+                            <span class="text-cyan-500 font-bold">&gt;</span>
+                            <span id="typewriterText" class="font-semibold text-cyan-600 dark:text-cyan-400">Data Engineer</span>
+                            <span class="cursor-blink text-cyan-400 font-bold">|</span>
+                        </div>
+                    </div>
+
+                    <!-- Core Role Badges -->
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 border border-cyan-500/20">Data Engineer</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-blue-500/10 text-blue-600 dark:text-blue-300 border border-blue-500/20">Python Developer</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-amber-500/10 text-amber-600 dark:text-amber-300 border border-amber-500/20">PySpark</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 border border-emerald-500/20">Google Cloud (GCP)</span>
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20">Apache Airflow</span>
+                    </div>
+
+                    <!-- Authentic Professional Summary -->
+                    <p id="about" class="text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                        Data Engineer / Python Developer with professional experience at <strong class="text-slate-900 dark:text-white font-semibold">Tata Consultancy Services</strong>, supporting data engineering work for an <strong class="text-cyan-600 dark:text-cyan-400 font-semibold">American Express client GenAI project</strong>. Hands-on experience with Python, SQL, PySpark, Google Cloud Platform, BigQuery, Dataproc, Cloud Storage, and Apache Airflow. Experienced in developing and maintaining data pipelines, building and consolidating Airflow DAGs, writing unit tests with Pytest and mocks, improving code coverage, and supporting data quality and production workflows. Strong academic record with an <strong class="text-slate-900 dark:text-white font-semibold">MCA (9.44 CGPA; 5th Rank, Kerala Technical University)</strong> and <strong class="text-slate-900 dark:text-white font-semibold">BCA (4th Rank, Kerala University)</strong>.
+                    </p>
+
+                    <!-- Quick Contact & Social Action Bar -->
+                    <div class="pt-2 flex flex-wrap items-center gap-3">
+                        <a href="#experience" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25 hover:brightness-110 transition-all">
+                            <i data-lucide="git-branch" class="w-4 h-4"></i>
+                            <span>Explore Pipelines & Work</span>
+                        </a>
+
+                        <button onclick="copyToClipboard('sshyamaprasadms@gmail.com', 'Email address copied to clipboard!')" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-mono text-xs sm:text-sm glass-card hover:border-cyan-500/50 text-slate-700 dark:text-slate-200 transition-all">
+                            <i data-lucide="copy" class="w-4 h-4 text-cyan-500"></i>
+                            <span>sshyamaprasadms@gmail.com</span>
+                        </button>
+
+                        <a href="mailto:sshyamaprasadms@gmail.com" aria-label="Send Email" class="p-3 rounded-xl glass-card hover:border-cyan-500/50 text-slate-700 dark:text-slate-200 hover:text-cyan-400 transition-all" title="Send Direct Email">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/shyamaprasad-ms-309950233" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium glass-card hover:border-blue-500/50 text-slate-700 dark:text-slate-200 hover:text-blue-400 transition-all">
+                            <i data-lucide="linkedin" class="w-4 h-4 text-blue-500"></i>
+                            <span>LinkedIn</span>
+                        </a>
+
+                        <a href="https://github.com/Shyam107" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium glass-card hover:border-slate-400 text-slate-700 dark:text-slate-200 hover:text-white transition-all">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+
+                    <!-- Location & Phone Metadata Bar -->
+                    <div class="flex flex-wrap items-center gap-6 pt-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-mono">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-cyan-500"></i>
+                            <span>Bengaluru, India</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="phone" class="w-4 h-4 text-emerald-500"></i>
+                            <a href="tel:+916238531297" class="hover:text-cyan-400 transition-colors">+91 6238531297</a>
+                            <button onclick="copyToClipboard('+91 6238531297', 'Phone number copied!')" class="text-xs text-cyan-500 hover:underline ml-1">[Copy]</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Data Engineering Profile & Terminal Card -->
+                <div class="lg:col-span-5">
+                    <div class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800/90 shadow-2xl relative overflow-hidden">
+                        <!-- Terminal Header -->
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                <span class="ml-2 font-mono text-xs text-slate-400">shyam_profile_pipeline.py</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">PASSED • 98.5% COV</span>
+                        </div>
+
+                        <!-- Profile Identity Header inside Card -->
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-emerald-500 p-0.5 shrink-0 shadow-lg">
+                                <div class="w-full h-full bg-slate-900 rounded-[14px] flex flex-col items-center justify-center font-mono">
+                                    <span class="text-lg font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">SMS</span>
+                                    <span class="text-[9px] text-slate-400">DE • GCP</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h2 class="font-bold text-lg dark:text-white text-slate-900">Shyamaprasad M. S.</h2>
+                                <p class="text-xs font-mono text-cyan-500 dark:text-cyan-400">TCS • American Express GenAI Project</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">MCA 5th Rank (KTU) • BCA 4th Rank (KU)</p>
+                            </div>
+                        </div>
+
+                        <!-- Code / Config Preview Block -->
+                        <div class="bg-slate-950/90 rounded-xl p-4 font-mono text-xs leading-relaxed text-slate-300 border border-slate-800/80 overflow-x-auto">
+                            <div><span class="text-purple-400">from</span> airflow <span class="text-purple-400">import</span> DAG</div>
+                            <div><span class="text-purple-400">from</span> pyspark.sql <span class="text-purple-400">import</span> SparkSession</div>
+                            <div class="mt-2"><span class="text-slate-500"># Active Data Engineering Profile</span></div>
+                            <div><span class="text-cyan-400">engineer</span> = {</div>
+                            <div class="pl-4"><span class="text-emerald-400">"name"</span>: <span class="text-amber-300">"Shyamaprasad M. S."</span>,</div>
+                            <div class="pl-4"><span class="text-emerald-400">"company"</span>: <span class="text-amber-300">"Tata Consultancy Services"</span>,</div>
+                            <div class="pl-4"><span class="text-emerald-400">"domain"</span>: <span class="text-amber-300">"AmEx Client GenAI Pipelines"</span>,</div>
+                            <div class="pl-4"><span class="text-emerald-400">"stack"</span>: [<span class="text-amber-300">"Python"</span>, <span class="text-amber-300">"PySpark"</span>, <span class="text-amber-300">"BigQuery"</span>, <span class="text-amber-300">"Airflow"</span>],</div>
+                            <div class="pl-4"><span class="text-emerald-400">"unit_test_cov"</span>: <span class="text-cyan-300">98.5</span>, <span class="text-slate-500"># cs2dr_data_pull.py</span></div>
+                            <div class="pl-4"><span class="text-emerald-400">"dags"</span>: <span class="text-amber-300">"Consolidated US & Intl CCAR"</span></div>
+                            <div>}</div>
+                        </div>
+
+                        <!-- Key Metric Highlight Cards (2x2 Grid) -->
+                        <div class="grid grid-cols-2 gap-3 mt-4">
+                            <div class="p-3.5 rounded-xl bg-slate-900/60 dark:bg-slate-900/60 border border-slate-800/80">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-2xl font-extrabold font-mono text-emerald-400">98.5%</span>
+                                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+                                </div>
+                                <p class="text-[11px] text-slate-400 mt-1 leading-snug">Unit Test Coverage (<code class="text-cyan-400">cs2dr_data_pull.py</code>)</p>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-slate-900/60 dark:bg-slate-900/60 border border-slate-800/80">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-2xl font-extrabold font-mono text-cyan-400">9.44<span class="text-xs text-slate-400">/10</span></span>
+                                    <i data-lucide="award" class="w-4 h-4 text-cyan-400"></i>
+                                </div>
+                                <p class="text-[11px] text-slate-400 mt-1 leading-snug">MCA CGPA • 5th University Rank (KTU)</p>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-slate-900/60 dark:bg-slate-900/60 border border-slate-800/80">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-2xl font-extrabold font-mono text-blue-400">84.6%</span>
+                                    <i data-lucide="medal" class="w-4 h-4 text-blue-400"></i>
+                                </div>
+                                <p class="text-[11px] text-slate-400 mt-1 leading-snug">BCA Score • 4th University Rank (KU)</p>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-slate-900/60 dark:bg-slate-900/60 border border-slate-800/80">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-2xl font-extrabold font-mono text-purple-400">6+</span>
+                                    <i data-lucide="layers" class="w-4 h-4 text-purple-400"></i>
+                                </div>
+                                <p class="text-[11px] text-slate-400 mt-1 leading-snug">Core Skill Domains in Cloud, PySpark & Airflow</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 2. INTERACTIVE TECHNICAL SKILLS EXPLORER -->
+        <section id="skills" class="scroll-mt-20 space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-500 mb-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Technical Arsenal</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight dark:text-white text-slate-900">Interactive Skills Explorer</h2>
+                    <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1">
+                        Filter by engineering domain or search any technology from Shyamaprasad's stack.
+                    </p>
+                </div>
+
+                <!-- Live Skill Search Input -->
+                <div class="relative w-full md:w-72">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <input 
+                        type="text" 
+                        id="skillSearchInput" 
+                        oninput="filterSkills()"
+                        placeholder="Search Python, BigQuery, Pytest..." 
+                        class="w-full pl-10 pr-9 py-2.5 rounded-xl glass-card text-sm focus:outline-none focus:border-cyan-500 dark:text-white text-slate-900 placeholder-slate-500"
+                    >
+                    <button id="clearSkillSearchBtn" onclick="clearSkillSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-cyan-400">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap gap-2" id="skillCategoryTabs" role="tablist">
+                <button onclick="setSkillCategory('All')" data-cat="All" class="skill-tab active-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all bg-cyan-500 text-slate-950 font-semibold shadow-md shadow-cyan-500/20">
+                    All Skills (31)
+                </button>
+                <button onclick="setSkillCategory('Programming')" data-cat="Programming" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40">
+                    Programming (6)
+                </button>
+                <button onclick="setSkillCategory('Cloud & Data')" data-cat="Cloud & Data" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40">
+                    Cloud & Data (5)
+                </button>
+                <button onclick="setSkillCategory('Data Engineering')" data-cat="Data Engineering" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40">
+                    Data Engineering (5)
+                </button>
+                <button onclick="setSkillCategory('Orchestration')" data-cat="Orchestration" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40">
+                    Orchestration (5)
+                </button>
+                <button onclick="setSkillCategory('Testing & Quality')" data-cat="Testing & Quality" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40">
+                    Testing & Quality (7)
+                </button>
+                <button onclick="setSkillCategory('Web & Database')" data-cat="Web & Database" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40">
+                    Web & Database (3)
+                </button>
+            </div>
+
+            <!-- Dynamic Skills Grid -->
+            <div id="skillsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Empty state if search yields no match -->
+            <div id="skillsEmptyState" class="hidden glass-card rounded-2xl p-8 text-center space-y-3">
+                <i data-lucide="search-x" class="w-8 h-8 text-cyan-400 mx-auto"></i>
+                <p class="text-base font-medium dark:text-white text-slate-900">No skills matched your search filter.</p>
+                <button onclick="clearSkillSearch(); setSkillCategory('All');" class="px-4 py-2 rounded-xl text-xs font-mono bg-cyan-500 text-slate-950 font-semibold">Reset Filters</button>
+            </div>
+        </section>
+
+        <!-- 3. PROFESSIONAL EXPERIENCE & INTERACTIVE PIPELINE ARCHITECTURE -->
+        <section id="experience" class="scroll-mt-20 space-y-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-500 mb-2">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                        <span>Production Engineering</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight dark:text-white text-slate-900">Professional Experience</h2>
+                    <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1">
+                        Data Engineering & Pipeline Development at Tata Consultancy Services (TCS).
+                    </p>
+                </div>
+
+                <!-- Experience Filter Pills -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterExperience('all')" data-exp="all" class="exp-tab px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold bg-cyan-500 text-slate-950 transition-all">All Impact</button>
+                    <button onclick="filterExperience('Engineering')" data-exp="Engineering" class="exp-tab px-3.5 py-1.5 rounded-xl text-xs font-mono glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 transition-all">Engineering</button>
+                    <button onclick="filterExperience('Testing')" data-exp="Testing" class="exp-tab px-3.5 py-1.5 rounded-xl text-xs font-mono glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 transition-all">Testing & Quality</button>
+                    <button onclick="filterExperience('Orchestration')" data-exp="Orchestration" class="exp-tab px-3.5 py-1.5 rounded-xl text-xs font-mono glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 transition-all">Orchestration</button>
+                    <button onclick="filterExperience('Cloud')" data-exp="Cloud" class="exp-tab px-3.5 py-1.5 rounded-xl text-xs font-mono glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 transition-all">Cloud & BigQuery</button>
+                </div>
+            </div>
+
+            <!-- Main TCS Experience Card -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-cyan-500 space-y-6">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-800/80">
+                    <div class="space-y-1">
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <h3 class="text-xl sm:text-2xl font-bold dark:text-white text-slate-900">Software Engineer / Data Engineering</h3>
+                            <span class="px-3 py-0.5 rounded-full text-xs font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">Active Role</span>
+                        </div>
+                        <p class="text-base font-medium text-cyan-600 dark:text-cyan-400">
+                            Tata Consultancy Services (TCS) — Bengaluru, India
+                        </p>
+                        <p class="text-xs font-mono text-slate-500 dark:text-slate-400">
+                            Client Context: <strong class="text-slate-700 dark:text-slate-200">American Express Client — GenAI Project</strong>
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 self-start lg:self-center px-4 py-2 rounded-xl bg-slate-900/70 border border-slate-800 font-mono text-xs sm:text-sm text-cyan-300">
+                        <i data-lucide="calendar" class="w-4 h-4 text-cyan-400"></i>
+                        <span>June 2025 – Present</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Accomplishments List -->
+                <div id="experienceList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Interactive Configurable Airflow DAG & GCP Data Pipeline Simulator -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 border border-cyan-500/25 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            <span>INTERACTIVE ARCHITECTURE SIMULATION</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold dark:text-white text-slate-900">
+                            Configurable Airflow DAG & GCP Data Pipeline
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                            Click any pipeline stage below to inspect Shyamaprasad's hands-on engineering contribution, or simulate an end-to-end DAG run.
+                        </p>
+                    </div>
+
+                    <button id="simulateDagBtn" onclick="simulateDagPipeline()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-mono text-xs font-semibold bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 shadow-lg shadow-emerald-500/20 hover:brightness-110 transition-all shrink-0 self-start sm:self-auto">
+                        <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                        <span id="simulateDagBtnText">Simulate DAG Run</span>
+                    </button>
+                </div>
+
+                <!-- Pipeline Interactive Nodes Flow -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative pt-2">
+                    <!-- Node 1: Ingestion -->
+                    <button onclick="selectPipelineNode(0)" id="dagNode0" class="dag-node node-active text-left p-4 rounded-xl bg-slate-900/80 border-2 border-cyan-500 transition-all hover:scale-[1.02] focus:outline-none">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-500/20 text-cyan-300">STAGE 01</span>
+                            <i data-lucide="cloud-download" class="w-5 h-5 text-cyan-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-white">Data Ingestion & GCS</h4>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">cs2dr_data_pull.py • Pub/Sub</p>
+                        <div class="mt-3 flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span id="dagStatus0">Ready / Validated</span>
+                        </div>
+                    </button>
+
+                    <!-- Node 2: PySpark & Dataproc Transformation -->
+                    <button onclick="selectPipelineNode(1)" id="dagNode1" class="dag-node text-left p-4 rounded-xl bg-slate-900/80 border-2 border-slate-800 hover:border-cyan-500/50 transition-all hover:scale-[1.02] focus:outline-none">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/20 text-blue-300">STAGE 02</span>
+                            <i data-lucide="flame" class="w-5 h-5 text-amber-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-white">PySpark / Dataproc ETL</h4>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">CECL & IFRS9 Variance</p>
+                        <div class="mt-3 flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                            <span id="dagStatus1">Click to inspect</span>
+                        </div>
+                    </button>
+
+                    <!-- Node 3: Pytest Quality Gate -->
+                    <button onclick="selectPipelineNode(2)" id="dagNode2" class="dag-node text-left p-4 rounded-xl bg-slate-900/80 border-2 border-slate-800 hover:border-cyan-500/50 transition-all hover:scale-[1.02] focus:outline-none">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300">STAGE 03</span>
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-white">Pytest Validation Gate</h4>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">98.5% Coverage • Mocks</p>
+                        <div class="mt-3 flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span id="dagStatus2">98.5% Unit Tested</span>
+                        </div>
+                    </button>
+
+                    <!-- Node 4: Airflow & BigQuery Storage -->
+                    <button onclick="selectPipelineNode(3)" id="dagNode3" class="dag-node text-left p-4 rounded-xl bg-slate-900/80 border-2 border-slate-800 hover:border-cyan-500/50 transition-all hover:scale-[1.02] focus:outline-none">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/20 text-purple-300">STAGE 04</span>
+                            <i data-lucide="database" class="w-5 h-5 text-purple-400"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-white">BigQuery & Consolidated DAG</h4>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">US & Intl CCAR DAG</p>
+                        <div class="mt-3 flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
+                            <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                            <span id="dagStatus3">Production Active</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Selected Node Inspector Panel -->
+                <div id="pipelineInspector" class="rounded-xl bg-slate-950/90 border border-slate-800 p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7 space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span id="inspectorBadge" class="px-2.5 py-0.5 rounded text-xs font-mono bg-cyan-500/20 text-cyan-300">STAGE 01 // INGESTION</span>
+                            <span id="inspectorTech" class="text-xs font-mono text-slate-400">Python • GCS • Pub/Sub • Pytest</span>
+                        </div>
+                        <h4 id="inspectorTitle" class="text-lg font-bold text-white">Data Ingestion & cs2dr_data_pull.py Workflow</h4>
+                        <p id="inspectorDesc" class="text-sm text-slate-300 leading-relaxed">
+                            Developed and maintained Python/PySpark data-ingestion components for the American Express GenAI project. Created comprehensive unit tests using Pytest, mocks, and patching—improving the test coverage of cs2dr_data_pull.py to 98.5%.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-5 bg-slate-900 rounded-xl p-3.5 border border-slate-800 font-mono text-xs text-emerald-300 space-y-1">
+                        <div class="text-slate-500 flex justify-between">
+                            <span>// DAG Task Telemetry</span>
+                            <span id="inspectorLogStatus" class="text-cyan-400">STATUS: HEALTHY</span>
+                        </div>
+                        <div id="inspectorCodeLine1">&gt; task_id: "cs2dr_data_pull_ingestion"</div>
+                        <div id="inspectorCodeLine2">&gt; pytest_coverage: 98.5% (Mocks &amp; Patching)</div>
+                        <div id="inspectorCodeLine3">&gt; target_env: "GCP_GenAI_AmEx_Pipeline"</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SELECTED PROJECTS (Filterable Cards + Detail Modal) -->
+        <section id="projects" class="scroll-mt-20 space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-500 mb-2">
+                        <i data-lucide="folder-git-2" class="w-4 h-4"></i>
+                        <span>Application & ML Engineering</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight dark:text-white text-slate-900">Selected Projects</h2>
+                    <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1">
+                        Click on any project card to inspect its technical stack and implementation details.
+                    </p>
+                </div>
+
+                <!-- Project Filter Buttons -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterProjects('all')" data-proj="all" class="proj-tab px-4 py-2 rounded-xl text-xs font-mono font-semibold bg-cyan-500 text-slate-950 transition-all">
+                        All Projects (4)
+                    </button>
+                    <button onclick="filterProjects('ML & AI')" data-proj="ML & AI" class="proj-tab px-4 py-2 rounded-xl text-xs font-mono glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 transition-all">
+                        Machine Learning & AI (2)
+                    </button>
+                    <button onclick="filterProjects('Web & Workflow')" data-proj="Web & Workflow" class="proj-tab px-4 py-2 rounded-xl text-xs font-mono glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 transition-all">
+                        Web & Workflow Systems (2)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Populated via JS -->
+            </div>
+        </section>
+
+        <!-- 5. EDUCATION & UNIVERSITY RANKS -->
+        <section id="education" class="scroll-mt-20 space-y-8">
+            <div>
+                <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-500 mb-2">
+                    <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                    <span>Academic Excellence</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight dark:text-white text-slate-900">Education & University Ranks</h2>
+                <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1">
+                    Top-5 University Rank holder in both Master's (MCA) and Bachelor's (BCA) degree programs.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- MCA Card -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 border border-slate-800/80 hover:border-cyan-500/40 transition-all flex flex-col justify-between relative overflow-hidden">
+                    <div class="space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
+                                2022 – 2024
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                                <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
+                                5th Rank • Kerala Technical University
+                            </span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white text-slate-900">Master of Computer Applications (MCA)</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5">
+                                <i data-lucide="building-2" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                                <span>Lourdes Matha College of Science and Technology, Kuttichal</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-mono uppercase text-slate-400 block">Cumulative GPA</span>
+                            <span class="text-2xl font-extrabold font-mono text-cyan-400">9.44 / 10</span>
+                        </div>
+                        <div class="w-32 bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-cyan-400 to-emerald-400 h-full rounded-full" style="width: 94.4%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BCA Card -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 border border-slate-800/80 hover:border-blue-500/40 transition-all flex flex-col justify-between relative overflow-hidden">
+                    <div class="space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                2019 – 2022
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                                <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
+                                4th Rank • Kerala University
+                            </span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold dark:text-white text-slate-900">Bachelor of Computer Applications (BCA)</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5">
+                                <i data-lucide="building-2" class="w-4 h-4 text-blue-400 shrink-0"></i>
+                                <span>Christ Nagar College, Maranalloor</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-mono uppercase text-slate-400 block">Aggregate Score</span>
+                            <span class="text-2xl font-extrabold font-mono text-blue-400">84.6%</span>
+                        </div>
+                        <div class="w-32 bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-blue-400 to-cyan-400 h-full rounded-full" style="width: 84.6%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CERTIFICATIONS, RESEARCH & LEADERSHIP -->
+        <section id="credentials" class="scroll-mt-20 space-y-8">
+            <div>
+                <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-500 mb-2">
+                    <i data-lucide="award" class="w-4 h-4"></i>
+                    <span>Continuous Learning & Impact</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight dark:text-white text-slate-900">Certifications, Research & Leadership</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Column 1: Certifications -->
+                <div class="glass-card rounded-2xl p-6 space-y-5 border-t-2 border-t-cyan-500">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400">
+                            <i data-lucide="badge-check" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg dark:text-white text-slate-900">Certifications</h3>
+                            <p class="text-xs text-slate-400 font-mono">NPTEL SWAYAM & Workshops</p>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3.5 text-sm">
+                        <li class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/80">
+                            <div class="flex items-center justify-between font-semibold text-white">
+                                <span>NPTEL SWAYAM – Internet of Things</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-emerald-500/20 text-emerald-300">85%</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">Certified in IoT architecture, sensors, and connected systems.</p>
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/80">
+                            <div class="flex items-center justify-between font-semibold text-white">
+                                <span>NPTEL SWAYAM – Cloud Computing</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-cyan-500/20 text-cyan-300">65%</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">Foundations of distributed cloud infrastructure and virtualization.</p>
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/80">
+                            <div class="flex items-center justify-between font-semibold text-white">
+                                <span>Python Programming Workshop</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-blue-500/20 text-blue-300">Completed</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">Hands-on workshop participation in Python programming.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Research & Publications -->
+                <div class="glass-card rounded-2xl p-6 space-y-5 border-t-2 border-t-blue-500">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
+                            <i data-lucide="book-open" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg dark:text-white text-slate-900">Research & Publications</h3>
+                            <p class="text-xs text-slate-400 font-mono">International Conference / Journals</p>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3.5 text-sm">
+                        <li class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/80 flex items-start gap-3">
+                            <i data-lucide="file-check-2" class="w-4 h-4 text-blue-400 shrink-0 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-white">Artificial Intelligence in Agriculture</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">International Conference / Journal Certificate</p>
+                            </div>
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/80 flex items-start gap-3">
+                            <i data-lucide="file-check-2" class="w-4 h-4 text-blue-400 shrink-0 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-white">Artificial Intelligence in the Medical Field</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">International Conference / Journal Certificate</p>
+                            </div>
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/80 flex items-start gap-3">
+                            <i data-lucide="file-check-2" class="w-4 h-4 text-blue-400 shrink-0 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-white">Disaster Management System using IoT</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">International Conference / Journal Certificate</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Leadership & Activities -->
+                <div class="glass-card rounded-2xl p-6 space-y-5 border-t-2 border-t-emerald-500">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
+                            <i data-lucide="users" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg dark:text-white text-slate-900">Leadership & Activities</h3>
+                            <p class="text-xs text-slate-400 font-mono">Campus Governance & Events</p>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3.5 text-sm">
+                        <li class="p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 space-y-1.5">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-emerald-500/20 text-emerald-300">College Union • 2023</span>
+                            <h4 class="font-semibold text-white">Elected Sports Secretary & MCA Representative</h4>
+                            <p class="text-xs text-slate-400">Lourdes Matha College of Science and Technology — represented MCA students and coordinated campus-wide athletics programs.</p>
+                        </li>
+                        <li class="p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 space-y-1.5">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-purple-500/20 text-purple-300">Versismo 2K23</span>
+                            <h4 class="font-semibold text-white">Student Convener — MCA Fest</h4>
+                            <p class="text-xs text-slate-400">Directed planning, student committees, and execution for the departmental technical & cultural fest Versismo 2K23.</p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 7. INTERACTIVE CONTACT & CONNECT SECTION -->
+        <section id="contact" class="scroll-mt-20">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-cyan-500/30 relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Contact Details -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div>
+                            <span class="text-xs font-mono uppercase tracking-wider text-cyan-400">Let's Connect</span>
+                            <h2 class="text-3xl sm:text-4xl font-bold mt-1 dark:text-white text-slate-900">Get In Touch</h2>
+                            <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-2">
+                                Interested in discussing Data Engineering roles, Python/PySpark pipelines, Google Cloud architecture, or Apache Airflow workflows? Reach out directly.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3.5">
+                            <!-- Email Card -->
+                            <div class="flex items-center justify-between p-4 rounded-2xl bg-slate-900/70 border border-slate-800">
+                                <div class="flex items-center gap-3.5 min-w-0">
+                                    <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0">
+                                        <i data-lucide="mail" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <span class="text-xs font-mono text-slate-400 block">Email Address</span>
+                                        <a href="mailto:sshyamaprasadms@gmail.com" class="text-sm sm:text-base font-medium text-white hover:text-cyan-400 truncate block">sshyamaprasadms@gmail.com</a>
+                                    </div>
+                                </div>
+                                <button onclick="copyToClipboard('sshyamaprasadms@gmail.com', 'Email copied to clipboard!')" class="px-3 py-1.5 rounded-lg text-xs font-mono bg-cyan-500/15 text-cyan-300 hover:bg-cyan-500 hover:text-slate-950 transition-all shrink-0">
+                                    Copy
+                                </button>
+                            </div>
+
+                            <!-- Phone Card -->
+                            <div class="flex items-center justify-between p-4 rounded-2xl bg-slate-900/70 border border-slate-800">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 shrink-0">
+                                        <i data-lucide="phone" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-mono text-slate-400 block">Phone / WhatsApp</span>
+                                        <a href="tel:+916238531297" class="text-sm sm:text-base font-medium text-white hover:text-emerald-400">+91 6238531297</a>
+                                    </div>
+                                </div>
+                                <button onclick="copyToClipboard('+91 6238531297', 'Phone number copied!')" class="px-3 py-1.5 rounded-lg text-xs font-mono bg-emerald-500/15 text-emerald-300 hover:bg-emerald-500 hover:text-slate-950 transition-all">
+                                    Copy
+                                </button>
+                            </div>
+
+                            <!-- Social Profiles Row -->
+                            <div class="grid grid-cols-2 gap-3 pt-1">
+                                <a href="https://www.linkedin.com/in/shyamaprasad-ms-309950233" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-blue-500/50 text-sm font-medium text-white hover:text-blue-400 transition-all">
+                                    <i data-lucide="linkedin" class="w-4 h-4 text-blue-500"></i>
+                                    <span>LinkedIn Profile</span>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-60"></i>
+                                </a>
+                                <a href="https://github.com/Shyam107" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-slate-500 text-sm font-medium text-white hover:text-cyan-400 transition-all">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                    <span>GitHub (@Shyam107)</span>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-60"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Message Composer -->
+                    <div class="lg:col-span-6 bg-slate-900/80 rounded-2xl p-6 border border-slate-800 space-y-4">
+                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4 text-cyan-400"></i>
+                            <span>Compose Direct Inquiry</span>
+                        </h3>
+                        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-3.5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                <div>
+                                    <label for="senderName" class="block text-xs font-mono text-slate-400 mb-1">Your Name</label>
+                                    <input type="text" id="senderName" required placeholder="Recruiter / Hiring Team" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+                                </div>
+                                <div>
+                                    <label for="senderOrg" class="block text-xs font-mono text-slate-400 mb-1">Company / Organization</label>
+                                    <input type="text" id="senderOrg" placeholder="Company Name" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="senderSubject" class="block text-xs font-mono text-slate-400 mb-1">Topic</label>
+                                <select id="senderSubject" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+                                    <option value="Data Engineering Opportunity">Data Engineering Opportunity</option>
+                                    <option value="Python / PySpark Developer Role">Python / PySpark Developer Role</option>
+                                    <option value="GCP & Airflow Pipeline Consultation">GCP & Airflow Pipeline Consultation</option>
+                                    <option value="General Networking">General Networking</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="senderMessage" class="block text-xs font-mono text-slate-400 mb-1">Message</label>
+                                <textarea id="senderMessage" rows="3" required placeholder="Hi Shyamaprasad, we'd love to connect regarding a Data Engineer opening..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="mail-check" class="w-4 h-4"></i>
+                                <span>Launch Email Client & Copy Message</span>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 py-8 mt-16 relative z-10 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+            <div>
+                © <span id="currentYear">2026</span> SHYAMAPRASAD M. S. • Bengaluru, India
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openResumeModal()" class="hover:text-cyan-400 transition-colors">ATS Resume View</button>
+                <span>•</span>
+                <a href="https://www.linkedin.com/in/shyamaprasad-ms-309950233" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">LinkedIn</a>
+                <span>•</span>
+                <a href="https://github.com/Shyam107" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PROJECT DETAIL MODAL -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md no-print" role="dialog" aria-modal="true">
+        <div class="glass-card rounded-2xl max-w-2xl w-full p-6 sm:p-8 border border-cyan-500/40 shadow-2xl space-y-5 relative animate-fadeIn">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <span id="modalProjCategory" class="px-2.5 py-1 rounded text-xs font-mono bg-cyan-500/20 text-cyan-300">CATEGORY</span>
+                    <h3 id="modalProjTitle" class="text-2xl font-bold text-white mt-2">Project Title</h3>
+                </div>
+                <button onclick="closeProjectModal()" class="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <p id="modalProjDesc" class="text-sm sm:text-base text-slate-300 leading-relaxed"></p>
+
+            <div class="space-y-2">
+                <h4 class="text-xs font-mono uppercase tracking-wider text-cyan-400">Key Highlights & Architecture</h4>
+                <ul id="modalProjHighlights" class="space-y-2 text-sm text-slate-300 list-disc pl-5"></ul>
+            </div>
+
+            <div class="pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                <div id="modalProjTags" class="flex flex-wrap gap-1.5"></div>
+                <button onclick="closeProjectModal()" class="px-4 py-2 rounded-xl text-xs font-mono font-semibold bg-cyan-500 text-slate-950">
+                    Close Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUICK ATS RESUME MODAL -->
+    <div id="resumeModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md no-print" role="dialog" aria-modal="true">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            <!-- Modal Top Bar -->
+            <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="file-check" class="w-5 h-5 text-cyan-400"></i>
+                    <h3 class="font-bold text-white">ATS-Friendly Single-Page Summary — Shyamaprasad M. S.</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-cyan-500 text-slate-950 font-semibold hover:brightness-110">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> Print / Save PDF
+                    </button>
+                    <button onclick="closeResumeModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Printable Resume Content -->
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-5 text-slate-200 text-sm leading-relaxed">
+                <div class="border-b border-slate-700 pb-4">
+                    <h2 class="text-2xl font-bold text-white">SHYAMAPRASAD M. S.</h2>
+                    <p class="font-mono text-xs text-cyan-400 mt-0.5">DATA ENGINEER | PYTHON | PYSPARK | GOOGLE CLOUD | APACHE AIRFLOW</p>
+                    <p class="text-xs text-slate-400 mt-1">
+                        Bengaluru, India | +91 6238531297 | sshyamaprasadms@gmail.com | 
+                        <a href="https://www.linkedin.com/in/shyamaprasad-ms-309950233" target="_blank" class="text-cyan-400 underline">LinkedIn</a> | 
+                        <a href="https://github.com/Shyam107" target="_blank" class="text-cyan-400 underline">GitHub</a>
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-mono text-xs uppercase text-cyan-400 font-bold mb-1">Professional Summary</h4>
+                    <p class="text-xs sm:text-sm text-slate-300">
+                        Data Engineer / Python Developer with professional experience at Tata Consultancy Services, supporting data engineering work for an American Express client GenAI project. Hands-on experience with Python, SQL, PySpark, Google Cloud Platform, BigQuery, Dataproc, Cloud Storage, and Apache Airflow. Experienced in developing and maintaining data pipelines, building and consolidating Airflow DAGs, writing unit tests with Pytest and mocks, improving code coverage, and supporting data quality and production workflows. Strong academic record with an MCA (9.44 CGPA; 5th Rank, Kerala Technical University) and BCA (4th Rank, Kerala University).
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-mono text-xs uppercase text-cyan-400 font-bold mb-1">Professional Experience</h4>
+                    <div class="flex justify-between font-semibold text-white text-xs sm:text-sm">
+                        <span>Tata Consultancy Services (TCS) — Software Engineer / Data Engineering (Bengaluru, India)</span>
+                        <span class="text-cyan-400 font-mono">June 2025 – Present</span>
+                    </div>
+                    <ul class="list-disc pl-5 mt-1.5 space-y-1 text-xs sm:text-sm text-slate-300">
+                        <li>Working on a GenAI project for the American Express client, contributing to data engineering and pipeline-related development and support.</li>
+                        <li>Developed and maintained Python/PySpark data-processing components and workflows involving data ingestion, transformation, and validation.</li>
+                        <li>Created unit tests using Pytest, mocks, and patching; improved test coverage of <code>cs2dr_data_pull.py</code> to 98.5%.</li>
+                        <li>Added and maintained tests for CECL and IFRS9 variance modules and raised pull requests for code changes.</li>
+                        <li>Consolidated US and international CCAR availability check DAGs into a single configurable DAG to reduce duplicated workflow logic.</li>
+                        <li>Worked with Google Cloud services and BigQuery, including SQL queries and updates to data/configuration tables; supported DAG monitoring and debugging.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-mono text-xs uppercase text-cyan-400 font-bold mb-1">Technical Skills</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
+                        <div><strong class="text-white">Programming:</strong> Python, SQL, Java, C, C++, PySpark</div>
+                        <div><strong class="text-white">Cloud & Data:</strong> Google Cloud Platform (GCP), BigQuery, Google Cloud Storage (GCS), Dataproc, Pub/Sub</div>
+                        <div><strong class="text-white">Data Engineering:</strong> Data ingestion, ETL/data pipelines, data transformation, data validation, SQL development</div>
+                        <div><strong class="text-white">Orchestration:</strong> Apache Airflow, DAG development, scheduling, task dependencies, workflow monitoring</div>
+                        <div><strong class="text-white">Testing & Quality:</strong> Pytest, unit testing, mocking, patching, test coverage, debugging, code refactoring</div>
+                        <div><strong class="text-white">Web & Database:</strong> HTML, CSS, MySQL</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-mono text-xs uppercase text-cyan-400 font-bold mb-1">Education</h4>
+                    <div class="text-xs space-y-1">
+                        <div class="flex justify-between">
+                            <span><strong class="text-white">Master of Computer Applications (MCA)</strong> — Lourdes Matha College of Science and Technology, Kuttichal</span>
+                            <span class="text-cyan-400 font-mono">2022 – 2024 | CGPA: 9.44/10 (5th Rank, KTU)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span><strong class="text-white">Bachelor of Computer Applications (BCA)</strong> — Christ Nagar College, Maranalloor</span>
+                            <span class="text-cyan-400 font-mono">2019 – 2022 | 84.6% (4th Rank, Kerala Univ.)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION POPUP -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900 border border-cyan-500 text-white shadow-2xl no-print">
+        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+        <span id="toastMessage" class="text-xs sm:text-sm font-mono">Action completed!</span>
+    </div>
+
+    <!-- Interactive Application JavaScript -->
+    <script>
+        // ==========================================
+        // 1. AUTHENTIC PORTFOLIO DATA STORE
+        // ==========================================
+        const skillsData = [
+            // Programming
+            { name: "Python", category: "Programming", icon: "code-2", badge: "Core Primary", context: "Data engineering pipelines, Pytest suites & backend ML apps at TCS" },
+            { name: "SQL", category: "Programming", icon: "database", badge: "Core Primary", context: "BigQuery queries, configuration table updates & data validation" },
+            { name: "PySpark", category: "Programming", icon: "flame", badge: "Big Data", context: "Distributed data ingestion, transformation & validation workflows" },
+            { name: "Java", category: "Programming", icon: "coffee", badge: "OOP", context: "Object-oriented programming & academic software engineering" },
+            { name: "C", category: "Programming", icon: "terminal", badge: "Systems", context: "Foundational algorithms & procedural programming" },
+            { name: "C++", category: "Programming", icon: "cpu", badge: "OOP", context: "Data structures & object-oriented systems programming" },
+
+            // Cloud & Data
+            { name: "Google Cloud Platform (GCP)", category: "Cloud & Data", icon: "cloud", badge: "Cloud Infrastructure", context: "Enterprise cloud ecosystem for American Express GenAI project" },
+            { name: "BigQuery", category: "Cloud & Data", icon: "server", badge: "Cloud Warehouse", context: "Analytical SQL queries, config table updates & dataset management" },
+            { name: "Google Cloud Storage (GCS)", category: "Cloud & Data", icon: "hard-drive", badge: "Data Lake", context: "Staging and storage layer for pipeline ingestion & artifacts" },
+            { name: "Dataproc", category: "Cloud & Data", icon: "network", badge: "Managed Spark", context: "Running scalable PySpark data-processing workloads on GCP" },
+            { name: "Pub/Sub", category: "Cloud & Data", icon: "radio", badge: "Messaging", context: "Event-driven stream ingestion & asynchronous workflow triggers" },
+
+            // Data Engineering
+            { name: "Data ingestion", category: "Data Engineering", icon: "download-cloud", badge: "Pipeline Stage", context: "Automated ingestion workflows including cs2dr_data_pull.py" },
+            { name: "ETL/data pipelines", category: "Data Engineering", icon: "git-merge", badge: "Architecture", context: "End-to-end extraction, transformation & loading for GenAI workflows" },
+            { name: "Data transformation", category: "Data Engineering", icon: "shuffle", badge: "Processing", context: "PySpark & Python variance logic for CECL & IFRS9 modules" },
+            { name: "Data validation", category: "Data Engineering", icon: "shield-check", badge: "Quality Assurance", context: "Availability checks, schema verification & production data quality" },
+            { name: "SQL development", category: "Data Engineering", icon: "table-2", badge: "Query Optimization", context: "Writing & maintaining production SQL scripts in BigQuery" },
+
+            // Orchestration
+            { name: "Apache Airflow", category: "Orchestration", icon: "wind", badge: "Workflow Engine", context: "Authoring, consolidating & monitoring production DAG workflows" },
+            { name: "DAG development", category: "Orchestration", icon: "git-branch", badge: "Configurable DAGs", context: "Consolidated US & international CCAR availability check DAGs" },
+            { name: "Scheduling", category: "Orchestration", icon: "clock", badge: "Automation", context: "Automated interval & SLA-driven pipeline execution" },
+            { name: "Task dependencies", category: "Orchestration", icon: "share-2", badge: "Graph Logic", context: "Designing upstream/downstream task topologies without duplication" },
+            { name: "Workflow monitoring", category: "Orchestration", icon: "activity", badge: "Production Ops", context: "DAG debugging, log analysis & production incident resolution" },
+
+            // Testing & Quality
+            { name: "Pytest", category: "Testing & Quality", icon: "check-circle-2", badge: "98.5% Coverage", context: "Unit test framework used to achieve 98.5% coverage on cs2dr_data_pull.py" },
+            { name: "Unit testing", category: "Testing & Quality", icon: "test-tube-2", badge: "Reliability", context: "Testing CECL, IFRS9 variance modules & ingestion components" },
+            { name: "Mocking", category: "Testing & Quality", icon: "copy-check", badge: "Test Isolation", context: "Simulating external cloud & database dependencies during testing" },
+            { name: "Patching", category: "Testing & Quality", icon: "wrench", badge: "monkeypatch / unittest", context: "Dynamic runtime object replacement for isolated pipeline unit tests" },
+            { name: "Test coverage", category: "Testing & Quality", icon: "percent", badge: "98.5% Milestone", context: "Measurable code quality enhancement across Python modules" },
+            { name: "Debugging", category: "Testing & Quality", icon: "bug", badge: "Troubleshooting", context: "Root-cause analysis across Airflow DAGs, PySpark jobs & SQL" },
+            { name: "Code refactoring", category: "Testing & Quality", icon: "sparkles", badge: "Clean Code", context: "Eliminating duplicated DAG logic & raising clean Pull Requests" },
+
+            // Web & Database
+            { name: "HTML", category: "Web & Database", icon: "layout", badge: "Frontend", context: "Structuring user interfaces for ML & management web apps" },
+            { name: "CSS", category: "Web & Database", icon: "palette", badge: "Styling", context: "Responsive layouts & styling for academic web portals" },
+            { name: "MySQL", category: "Web & Database", icon: "database", badge: "Relational DB", context: "Relational schema design & query management for web applications" }
+        ];
+
+        const experienceData = [
+            {
+                tag: "Engineering",
+                badgeColor: "cyan",
+                icon: "cpu",
+                title: "American Express Client — GenAI Project Engineering",
+                text: "Working on a GenAI project for the American Express client, contributing to data engineering and pipeline-related development and support."
+            },
+            {
+                tag: "Engineering",
+                badgeColor: "blue",
+                icon: "flame",
+                title: "Python & PySpark Data Processing Pipelines",
+                text: "Developed and maintained Python/PySpark data-processing components and workflows involving data ingestion, transformation, and validation."
+            },
+            {
+                tag: "Testing",
+                badgeColor: "emerald",
+                icon: "shield-check",
+                title: "98.5% Unit Test Coverage on cs2dr_data_pull.py",
+                text: "Created unit tests using Pytest, mocks, and patching; improved test coverage of cs2dr_data_pull.py to 98.5%."
+            },
+            {
+                tag: "Testing",
+                badgeColor: "emerald",
+                icon: "git-pull-request",
+                title: "CECL & IFRS9 Variance Module Testing",
+                text: "Added and maintained tests for CECL and IFRS9 variance modules and raised pull requests for code changes."
+            },
+            {
+                tag: "Orchestration",
+                badgeColor: "purple",
+                icon: "git-merge",
+                title: "Configurable CCAR Availability Check DAG Consolidation",
+                text: "Consolidated US and international CCAR availability check DAGs into a single configurable DAG to reduce duplicated workflow logic."
+            },
+            {
+                tag: "Cloud",
+                badgeColor: "amber",
+                icon: "cloud",
+                title: "Google Cloud Platform, BigQuery & DAG Operations",
+                text: "Worked with Google Cloud services and BigQuery, including SQL queries and updates to data/configuration tables; supported DAG monitoring and debugging."
+            }
+        ];
+
+        const pipelineNodes = [
+            {
+                badge: "STAGE 01 // INGESTION & CLOUD STORAGE",
+                tech: "Python • GCS • Pub/Sub • cs2dr_data_pull.py",
+                title: "Data Ingestion & cs2dr_data_pull.py Workflow",
+                desc: "Developed and maintained Python/PySpark data-ingestion components for the American Express GenAI project. Created comprehensive unit tests using Pytest, mocks, and patching—improving the test coverage of cs2dr_data_pull.py to 98.5%.",
+                line1: '> task_id: "cs2dr_data_pull_ingestion"',
+                line2: '> pytest_coverage: 98.5% (Mocks & Patching)',
+                line3: '> target_env: "GCP_GenAI_AmEx_Pipeline"'
+            },
+            {
+                badge: "STAGE 02 // PYSPARK & DATAPROC ETL",
+                tech: "PySpark • Dataproc • Python • Data Transformation",
+                title: "Distributed Transformation & Variance Modules",
+                desc: "Engineered scalable Python and PySpark transformation workflows executing on GCP Dataproc. Added and maintained unit tests for CECL and IFRS9 variance modules and raised pull requests for production code changes.",
+                line1: '> spark_job: "cecl_ifrs9_variance_transform.py"',
+                line2: '> cluster: "gcp-dataproc-etl-worker"',
+                line3: '> validation_status: "SCHEMA_AND_VARIANCE_VERIFIED"'
+            },
+            {
+                badge: "STAGE 03 // PYTEST QUALITY GATE",
+                tech: "Pytest • Unit Testing • Mocking • Patching",
+                title: "Automated Unit Testing & 98.5% Coverage Gate",
+                desc: "Implemented isolated unit test suites utilizing Pytest, mocking, and patching so cloud and database calls are deterministically verified before deployment, elevating cs2dr_data_pull.py coverage to 98.5%.",
+                line1: '> cmd: "pytest --cov=cs2dr_data_pull tests/"',
+                line2: '> result: "PASSED | Coverage: 98.5%"',
+                line3: '> modules: ["cs2dr_data_pull", "CECL", "IFRS9"]'
+            },
+            {
+                badge: "STAGE 04 // AIRFLOW & BIGQUERY WAREHOUSE",
+                tech: "Apache Airflow • BigQuery • SQL • Config Tables",
+                title: "Consolidated CCAR DAG & BigQuery Analytics",
+                desc: "Consolidated separate US and international CCAR availability check DAGs into a single configurable Apache Airflow DAG to eliminate duplicated workflow logic. Executed BigQuery SQL queries and configuration table updates.",
+                line1: '> dag_id: "ccar_consolidated_availability_dag"',
+                line2: '> regions: ["US", "INTERNATIONAL"] # Configurable',
+                line3: '> sink: "bigquery://amex_genai.config_and_data_tables"'
+            }
+        ];
+
+        const projectsData = [
+            {
+                id: 0,
+                title: "Auto Claims Evaluator – Damage Score Analysis using ML and AI",
+                category: "ML & AI",
+                icon: "car",
+                accent: "cyan",
+                stack: ["Python", "Machine Learning", "AI", "HTML", "CSS"],
+                description: "Built an academic web application using Python for the backend and HTML/CSS for the frontend, applying machine learning and AI concepts to support vehicle-damage assessment in auto-claims evaluation.",
+                highlights: [
+                    "Designed a Python backend integrating machine learning and AI concepts to evaluate vehicle damage severity.",
+                    "Built an intuitive HTML/CSS frontend interface for uploading and reviewing auto-claim damage scores.",
+                    "Streamlined the decision-support workflow for vehicle insurance claim assessment."
+                ]
+            },
+            {
+                id: 1,
+                title: "Online Payment Fraud Detection Using Machine Learning",
+                category: "ML & AI",
+                icon: "shield-alert",
+                accent: "emerald",
+                stack: ["Python", "Machine Learning", "HTML", "CSS"],
+                description: "Developed an academic project using Python and HTML/CSS to explore machine-learning-based identification of potentially fraudulent online payment transactions.",
+                highlights: [
+                    "Implemented classification and anomaly-detection workflows in Python to flag suspicious online payment patterns.",
+                    "Created a clean HTML/CSS web dashboard for transaction input and fraud risk visualization.",
+                    "Focused on reducing false positives while identifying high-risk digital payment anomalies."
+                ]
+            },
+            {
+                id: 2,
+                title: "Agroculture",
+                category: "Web & Workflow",
+                icon: "sprout",
+                accent: "amber",
+                stack: ["Web Application", "HTML", "CSS", "Database"],
+                description: "Created a web application intended to help agricultural officers and users access information about crops, fertilizers, irrigation, and pesticides.",
+                highlights: [
+                    "Centralized agricultural knowledge base covering crop lifecycle, fertilizers, irrigation schedules, and pesticide usage.",
+                    "Designed role-friendly views for both agricultural officers and farmers/users.",
+                    "Structured database-backed records for rapid retrieval of seasonal farming guidance."
+                ]
+            },
+            {
+                id: 3,
+                title: "Health Office Management System",
+                category: "Web & Workflow",
+                icon: "heart-pulse",
+                accent: "blue",
+                stack: ["Web Application", "Workflow Automation", "HTML", "CSS"],
+                description: "Developed a web-based application to automate selected services and workflows in a health office.",
+                highlights: [
+                    "Digitized routine administrative workflows and service requests inside a public/local health office.",
+                    "Reduced manual paperwork by providing structured web forms and status tracking.",
+                    "Engineered with clean HTML/CSS interfaces for staff usability and service efficiency."
+                ]
+            }
+        ];
+
+        // ==========================================
+        // 2. RENDER & FILTER FUNCTIONS
+        // ==========================================
+        let activeSkillCategory = "All";
+
+        function renderSkills() {
+            const searchQuery = (document.getElementById('skillSearchInput').value || '').trim().toLowerCase();
+            const clearBtn = document.getElementById('clearSkillSearchBtn');
+            clearBtn.classList.toggle('hidden', searchQuery.length === 0);
+
+            const grid = document.getElementById('skillsGrid');
+            const emptyState = document.getElementById('skillsEmptyState');
+
+            const filtered = skillsData.filter(item => {
+                const matchesCat = activeSkillCategory === "All" || item.category === activeSkillCategory;
+                const matchesQuery = !searchQuery || 
+                    item.name.toLowerCase().includes(searchQuery) || 
+                    item.category.toLowerCase().includes(searchQuery) ||
+                    item.context.toLowerCase().includes(searchQuery) ||
+                    item.badge.toLowerCase().includes(searchQuery);
+                return matchesCat && matchesQuery;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(skill => `
+                <div class="glass-card rounded-2xl p-4 border border-slate-800/80 hover:border-cyan-500/50 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-2.5">
+                            <span class="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-slate-800/90 text-cyan-400 border border-slate-700">
+                                ${skill.category}
+                            </span>
+                            <span class="text-[11px] font-mono text-emerald-400">${skill.badge}</span>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors">
+                                <i data-lucide="${skill.icon}" class="w-4 h-4"></i>
+                            </div>
+                            <h3 class="font-bold text-base dark:text-white text-slate-900">${skill.name}</h3>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 pt-2.5 border-t border-slate-800/60 leading-relaxed">
+                        ${skill.context}
+                    </p>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function setSkillCategory(category) {
+            activeSkillCategory = category;
+            document.querySelectorAll('.skill-tab').forEach(btn => {
+                if (btn.getAttribute('data-cat') === category) {
+                    btn.className = "skill-tab active-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-semibold transition-all bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20";
+                } else {
+                    btn.className = "skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40";
+                }
+            });
+            renderSkills();
+        }
+
+        function filterSkills() {
+            renderSkills();
+        }
+
+        function clearSkillSearch() {
+            document.getElementById('skillSearchInput').value = '';
+            renderSkills();
+        }
+
+        // Experience Filtering
+        function filterExperience(tag) {
+            document.querySelectorAll('.exp-tab').forEach(btn => {
+                if (btn.getAttribute('data-exp') === tag) {
+                    btn.className = "exp-tab px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold bg-cyan-500 text-slate-950 transition-all";
+                } else {
+                    btn.className = "exp-tab px-3.5 py-1.5 rounded-xl text-xs font-mono glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 transition-all";
+                }
+            });
+
+            const list = document.getElementById('experienceList');
+            const items = tag === 'all' ? experienceData : experienceData.filter(e => e.tag === tag);
+
+            list.innerHTML = items.map(item => `
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800/90 hover:border-cyan-500/40 transition-all flex items-start gap-3.5">
+                    <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0 mt-0.5">
+                        <i data-lucide="${item.icon}" class="w-4 h-4"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800 text-cyan-300">${item.tag}</span>
+                            <h4 class="font-semibold text-sm dark:text-white text-slate-900">${item.title}</h4>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">${item.text}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // Pipeline Inspector & Simulator
+        function selectPipelineNode(index) {
+            const node = pipelineNodes[index];
+            document.querySelectorAll('.dag-node').forEach((el, idx) => {
+                if (idx === index) {
+                    el.classList.add('node-active', 'border-cyan-500');
+                    el.classList.remove('border-slate-800');
+                } else {
+                    el.classList.remove('node-active', 'border-cyan-500');
+                    el.classList.add('border-slate-800');
+                }
+            });
+
+            document.getElementById('inspectorBadge').textContent = node.badge;
+            document.getElementById('inspectorTech').textContent = node.tech;
+            document.getElementById('inspectorTitle').textContent = node.title;
+            document.getElementById('inspectorDesc').textContent = node.desc;
+            document.getElementById('inspectorCodeLine1').textContent = node.line1;
+            document.getElementById('inspectorCodeLine2').textContent = node.line2;
+            document.getElementById('inspectorCodeLine3').textContent = node.line3;
+        }
+
+        let isSimulatingDag = false;
+        function simulateDagPipeline() {
+            if (isSimulatingDag) return;
+            isSimulatingDag = true;
+            const btnText = document.getElementById('simulateDagBtnText');
+            const logStatus = document.getElementById('inspectorLogStatus');
+            btnText.textContent = "Running Airflow DAG...";
+            logStatus.textContent = "STATUS: EXECUTING DAG";
+
+            let step = 0;
+            const interval = setInterval(() => {
+                selectPipelineNode(step);
+                document.getElementById(`dagStatus${step}`).textContent = "SUCCESS ✓";
+                step++;
+                if (step >= pipelineNodes.length) {
+                    clearInterval(interval);
+                    btnText.textContent = "Simulate DAG Run";
+                    logStatus.textContent = "STATUS: DAG RUN SUCCESS (98.5% COV)";
+                    showToast("Airflow DAG Simulation Completed: All 4 Pipeline Stages Succeeded!");
+                    isSimulatingDag = false;
+                }
+            }, 650);
+        }
+
+        // Projects Rendering & Modal
+        function filterProjects(category) {
+            document.querySelectorAll('.proj-tab').forEach(btn => {
+                if (btn.getAttribute('data-proj') === category) {
+                    btn.className = "proj-tab px-4 py-2 rounded-xl text-xs font-mono font-semibold bg-cyan-500 text-slate-950 transition-all";
+                } else {
+                    btn.className = "proj-tab px-4 py-2 rounded-xl text-xs font-mono glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 transition-all";
+                }
+            });
+
+            const grid = document.getElementById('projectsGrid');
+            const filtered = category === 'all' ? projectsData : projectsData.filter(p => p.category === category);
+
+            grid.innerHTML = filtered.map(proj => `
+                <div onclick="openProjectModal(${proj.id})" class="glass-card rounded-2xl p-6 border border-slate-800/80 hover:border-cyan-500/50 transition-all cursor-pointer group flex flex-col justify-between space-y-5">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-lg text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                                ${proj.category}
+                            </span>
+                            <div class="p-2 rounded-xl bg-slate-900 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors">
+                                <i data-lucide="${proj.icon}" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white text-slate-900 group-hover:text-cyan-400 transition-colors">
+                            ${proj.title}
+                        </h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            ${proj.description}
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                        <div class="flex flex-wrap gap-1.5">
+                            ${proj.stack.map(t => `<span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-slate-900 text-slate-300 border border-slate-800">${t}</span>`).join('')}
+                        </div>
+                        <span class="text-xs font-mono text-cyan-400 shrink-0 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Inspect <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function openProjectModal(id) {
+            const proj = projectsData.find(p => p.id === id);
+            if (!proj) return;
+            document.getElementById('modalProjCategory').textContent = proj.category;
+            document.getElementById('modalProjTitle').textContent = proj.title;
+            document.getElementById('modalProjDesc').textContent = proj.description;
+            document.getElementById('modalProjHighlights').innerHTML = proj.highlights.map(h => `<li>${h}</li>`).join('');
+            document.getElementById('modalProjTags').innerHTML = proj.stack.map(t => `<span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-900 text-cyan-300 border border-slate-800">${t}</span>`).join('');
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Resume Modal
+        function openResumeModal() {
+            const modal = document.getElementById('resumeModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeResumeModal() {
+            const modal = document.getElementById('resumeModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // ==========================================
+        // 3. UTILITIES: CLIPBOARD, TOAST, THEME, TYPEWRITER
+        // ==========================================
+        function copyToClipboard(text, message) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(message || 'Copied to clipboard!');
+            } catch (err) {
+                showToast('Copied: ' + text);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3200);
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('senderName').value.trim();
+            const org = document.getElementById('senderOrg').value.trim();
+            const subject = document.getElementById('senderSubject').value;
+            const message = document.getElementById('senderMessage').value.trim();
+
+            const fullSubject = encodeURIComponent(`${subject} — from ${name}${org ? ' (' + org + ')' : ''}`);
+            const fullBody = encodeURIComponent(`Hi Shyamaprasad,\n\n${message}\n\nBest regards,\n${name}${org ? '\n' + org : ''}`);
+            
+            copyToClipboard(`Subject: ${subject}\n\n${message}`, "Inquiry copied & opening email client!");
+            window.location.href = `mailto:sshyamaprasadms@gmail.com?subject=${fullSubject}&body=${fullBody}`;
+        }
+
+        // Dark / Light Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.toggle('dark');
+            const body = document.body;
+            const sun = document.getElementById('themeIconSun');
+            const moon = document.getElementById('themeIconMoon');
+
+            if (isDark) {
+                body.classList.remove('bg-slate-50', 'text-slate-900');
+                body.classList.add('bg-slate-950', 'text-slate-100');
+                sun.classList.add('hidden');
+                moon.classList.remove('hidden');
+                showToast("Switched to Dark Developer Theme");
+            } else {
+                body.classList.remove('bg-slate-950', 'text-slate-100');
+                body.classList.add('bg-slate-50', 'text-slate-900');
+                moon.classList.add('hidden');
+                sun.classList.remove('hidden');
+                showToast("Switched to Light Mode");
+            }
+        }
+
+        // Mobile Navigation Drawer
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        // Animated Typewriter Effect for Headline Roles
+        const headlineRoles = [
+            "Data Engineer",
+            "Python Developer",
+            "PySpark Pipeline Engineer",
+            "Google Cloud (BigQuery, Dataproc, GCS)",
+            "Apache Airflow DAG Architect",
+            "Pytest Quality Engineer (98.5% Coverage)"
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function runTypewriter() {
+            const currentRole = headlineRoles[roleIndex];
+            const displayEl = document.getElementById('typewriterText');
+            if (!displayEl) return;
+
+            if (!isDeleting) {
+                displayEl.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === currentRole.length) {
+                    isDeleting = true;
+                    setTimeout(runTypewriter, 1800);
+                    return;
+                }
+            } else {
+                displayEl.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % headlineRoles.length;
+                }
+            }
+            setTimeout(runTypewriter, isDeleting ? 35 : 70);
+        }
+
+        // Close modals on Escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+                closeResumeModal();
+            }
+        });
+
+        // Initialize Portfolio on Load
+        window.onload = function () {
+            renderSkills();
+            filterExperience('all');
+            filterProjects('all');
+            runTypewriter();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
