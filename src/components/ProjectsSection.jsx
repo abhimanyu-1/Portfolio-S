@@ -22,14 +22,14 @@ export default function ProjectsSection({ onSelectProject }) {
       {/* Header & Filter Tabs */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-500">
+          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-700 dark:text-cyan-400 font-bold">
             <FolderGit2 className="w-4 h-4" />
             <span>Application &amp; ML Engineering</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight dark:text-white text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-950 dark:text-white">
             Selected Projects
           </h2>
-          <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-2xl">
+          <p className="text-sm sm:text-base text-slate-800 dark:text-slate-400 max-w-2xl font-medium">
             Click on any project card to inspect its technical architecture, ML pipelines, and implementation details.
           </p>
         </div>
@@ -42,8 +42,8 @@ export default function ProjectsSection({ onSelectProject }) {
               onClick={() => setActiveCategory(cat.key)}
               className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-mono transition-all ${
                 activeCategory === cat.key
-                  ? "bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20 scale-[1.02]"
-                  : "glass-card text-slate-600 dark:text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400"
+                  ? "bg-cyan-600 dark:bg-cyan-500 text-white dark:text-slate-950 font-bold shadow-md shadow-cyan-500/20 scale-[1.02]"
+                  : "glass-card text-slate-800 dark:text-slate-300 hover:border-cyan-500/40 hover:text-cyan-700 dark:hover:text-cyan-400 font-semibold"
               }`}
             >
               {cat.label}
@@ -58,40 +58,40 @@ export default function ProjectsSection({ onSelectProject }) {
           <div
             key={proj.id}
             onClick={() => onSelectProject(proj)}
-            className="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-800/80 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/5 transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-6"
+            className="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800/80 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/5 transition-all duration-300 cursor-pointer group flex flex-col justify-between space-y-6"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="px-3.5 py-1 rounded-xl text-xs font-mono font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/25">
+                <span className="px-3.5 py-1 rounded-xl text-xs font-mono font-bold bg-cyan-100 dark:bg-cyan-500/10 text-cyan-950 dark:text-cyan-400 border border-cyan-300 dark:border-cyan-500/25">
                   {proj.category}
                 </span>
-                <div className="p-2.5 rounded-xl bg-slate-900 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors shadow-sm">
+                <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-cyan-700 dark:text-cyan-400 group-hover:bg-cyan-600 group-hover:text-white dark:group-hover:bg-cyan-500 dark:group-hover:text-slate-950 transition-colors shadow-sm">
                   <DynamicIcon name={proj.icon} className="w-5 h-5" />
                 </div>
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-bold dark:text-white text-slate-900 group-hover:text-cyan-400 transition-colors leading-snug">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-950 dark:text-white group-hover:text-cyan-700 dark:group-hover:text-cyan-400 transition-colors leading-snug">
                 {proj.title}
               </h3>
 
-              <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-800 dark:text-slate-400 leading-relaxed font-medium">
                 {proj.description}
               </p>
             </div>
 
-            <div className="pt-5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+            <div className="pt-5 border-t border-slate-200 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap gap-2">
                 {proj.stack.map(tech => (
                   <span
                     key={tech}
-                    className="px-3 py-1 rounded-lg text-xs font-mono bg-slate-900/90 text-slate-300 border border-slate-800 shadow-sm"
+                    className="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-900/90 text-slate-900 dark:text-slate-300 border border-slate-300 dark:border-slate-800 font-bold shadow-sm"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <span className="text-xs font-mono text-cyan-400 shrink-0 flex items-center gap-1.5 font-semibold group-hover:translate-x-1 transition-transform">
+              <span className="text-xs font-mono text-cyan-700 dark:text-cyan-400 shrink-0 flex items-center gap-1.5 font-bold group-hover:translate-x-1 transition-transform">
                 Inspect <ArrowRight className="w-4 h-4" />
               </span>
             </div>
@@ -102,4 +102,3 @@ export default function ProjectsSection({ onSelectProject }) {
     </section>
   );
 }
-

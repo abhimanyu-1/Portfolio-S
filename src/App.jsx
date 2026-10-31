@@ -26,7 +26,7 @@ export default function App() {
       document.body.className = "bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-slate-950 transition-colors duration-300 min-h-screen relative overflow-x-hidden";
     } else {
       root.classList.remove('dark');
-      document.body.className = "bg-slate-50 text-slate-900 font-sans antialiased selection:bg-cyan-500 selection:text-slate-950 transition-colors duration-300 min-h-screen relative overflow-x-hidden";
+      document.body.className = "bg-slate-50 text-slate-950 font-sans antialiased selection:bg-cyan-600 selection:text-white transition-colors duration-300 min-h-screen relative overflow-x-hidden";
     }
   }, [isDark]);
 

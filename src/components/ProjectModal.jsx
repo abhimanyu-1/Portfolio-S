@@ -20,50 +20,50 @@ export default function ProjectModal({ project, onClose }) {
       onClick={onClose}
     >
       <div
-        className="glass-card rounded-3xl max-w-2xl w-full p-6 sm:p-8 md:p-10 border border-cyan-500/40 shadow-2xl space-y-6 relative animate-fadeIn"
+        className="glass-card rounded-3xl max-w-2xl w-full p-6 sm:p-8 md:p-10 border border-slate-200 dark:border-cyan-500/40 shadow-2xl space-y-6 relative animate-fadeIn bg-white dark:bg-slate-900"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
-            <span className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+            <span className="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-cyan-100 dark:bg-cyan-500/20 text-cyan-950 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-500/30">
               {project.category}
             </span>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+            <h3 className="text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white leading-tight">
               {project.title}
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-800 dark:text-slate-300 leading-relaxed font-medium">
           {project.description}
         </p>
 
         <div className="space-y-3">
-          <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold">
+          <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-700 dark:text-cyan-400 font-bold">
             Key Highlights &amp; Technical Architecture
           </h4>
-          <ul className="space-y-2.5 text-sm text-slate-300">
+          <ul className="space-y-2.5 text-sm text-slate-800 dark:text-slate-300 font-medium">
             {project.highlights.map((highlight, idx) => (
               <li key={idx} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{highlight}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+        <div className="pt-4 border-t border-slate-200 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap gap-2">
             {project.stack.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 rounded-lg text-xs font-mono bg-slate-900 text-cyan-300 border border-slate-800"
+                className="px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-cyan-300 border border-slate-300 dark:border-slate-800 font-bold"
               >
                 {tech}
               </span>
@@ -71,7 +71,7 @@ export default function ProjectModal({ project, onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-xl text-xs font-mono font-semibold bg-cyan-500 text-slate-950 hover:brightness-110 transition-all shadow-md shadow-cyan-500/20"
+            className="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-cyan-600 dark:bg-cyan-500 text-white dark:text-slate-950 hover:brightness-110 transition-all shadow-md shadow-cyan-500/20"
           >
             Close Details
           </button>
