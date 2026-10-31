@@ -8,11 +8,13 @@ import EducationSection from './components/EducationSection';
 import CredentialsSection from './components/CredentialsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
+import ResumeModal from './components/ResumeModal';
 import ProjectModal from './components/ProjectModal';
 import Toast from './components/Toast';
 
 export default function App() {
   const [isDark, setIsDark] = useState(true);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [toast, setToast] = useState({ message: '', isVisible: false });
 
@@ -56,6 +58,7 @@ export default function App() {
 
       {/* Sticky Top Navigation */}
       <Navbar
+        onOpenResume={() => setIsResumeModalOpen(true)}
         isDark={isDark}
         onToggleTheme={handleToggleTheme}
       />
@@ -87,9 +90,13 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onOpenResume={() => setIsResumeModalOpen(true)} />
 
       {/* Modals & Toast */}
+      {isResumeModalOpen && (
+        <ResumeModal onClose={() => setIsResumeModalOpen(false)} />
+      )}
+
       {selectedProject && (
         <ProjectModal
           project={selectedProject}

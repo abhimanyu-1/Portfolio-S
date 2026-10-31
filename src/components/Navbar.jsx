@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Download, Sun, Moon, Menu, X } from 'lucide-react';
+import { FileText, Sun, Moon, Menu, X } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export default function Navbar({ isDark, onToggleTheme }) {
+export default function Navbar({ onOpenResume, isDark, onToggleTheme }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -50,16 +50,15 @@ export default function Navbar({ isDark, onToggleTheme }) {
 
         {/* Action Controls */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* Quick Resume Download Button */}
-          <a
-            href="/Shyam(Resume).pdf"
-            download="ATS Resume - Shyam(Resume).pdf"
+          {/* Quick Resume View & Download Button */}
+          <button
+            onClick={onOpenResume}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-bold bg-cyan-100 dark:bg-cyan-500/10 text-cyan-950 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-500/30 hover:bg-cyan-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all shadow-sm hover:shadow-cyan-500/20"
-            title="Download Shyam(Resume).pdf"
+            title="View & Download Resume"
           >
-            <Download className="w-4 h-4" />
+            <FileText className="w-4 h-4" />
             <span>Resume</span>
-          </a>
+          </button>
 
           {/* Theme Toggle Button */}
           <button
@@ -95,14 +94,15 @@ export default function Navbar({ isDark, onToggleTheme }) {
             </a>
           ))}
           <div className="pt-3 border-t border-slate-800/80">
-            <a
-              href="/Shyam(Resume).pdf"
-              download="ATS Resume - Shyam(Resume).pdf"
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenResume();
+              }}
               className="w-full py-3 rounded-xl text-xs font-mono font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
             >
-              <Download className="w-4 h-4" /> Download Resume (PDF)
-            </a>
+              <FileText className="w-4 h-4" /> View &amp; Download Resume
+            </button>
           </div>
         </div>
       )}
